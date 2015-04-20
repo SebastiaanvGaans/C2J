@@ -72,11 +72,11 @@ public class SerialisatieTest extends TestCase {
 
         Persoon jan = adm2.addPersoon(Geslacht.MAN, new String[]{"Jan"}, "Boven",
                 "van", new GregorianCalendar(1975, Calendar.APRIL, 23), "Bergen Op Zoom", null);
-        assertEquals("nummering van personen onjuist", adm.aantalGeregistreerdePersonen() + 1, jan.getNr());
+        assertEquals("nummering van personen onjuist", adm.aantalGeregistreerdePersonen() +1, jan.getNr());
         Gezin rosaEnJan = adm2.addOngehuwdGezin(rosa, jan);
-        assertEquals("nummering van gezinnen onjuist", adm.aantalGeregistreerdeGezinnen() + 1, rosaEnJan.getNr());
+        assertEquals("nummering van gezinnen onjuist", adm.aantalGeregistreerdeGezinnen() +1, rosaEnJan.getNr()); 
 
-        assertEquals("aantal personen in observable personen onjuist", adm.aantalGeregistreerdePersonen() + 1,
+        assertEquals("aantal personen in observable personen onjuist", adm.aantalGeregistreerdePersonen() +1,  
                 adm2.getPersonen().size());
         assertTrue(testOpslag.delete());
     }

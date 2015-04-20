@@ -1,5 +1,6 @@
 package stamboom.console;
 
+import java.io.File;
 import stamboom.domain.*;
 import java.util.*;
 import stamboom.util.StringUtilities;
@@ -40,6 +41,15 @@ public class StamboomConsole {
                     break;
                 case SHOW_GEZIN:
                     toonGezinsgegevens();
+                    break;
+                case SAVE_ADMIN:
+                    saveAdmin();
+                    break;
+                case LOAD_ADMIN:
+                    loadAdmin();
+                    break;
+                case SHOW_STAMBOOM:
+                    showStamboom();
                     break;
             }
             choice = kiesMenuItem();
@@ -259,5 +269,36 @@ public class StamboomConsole {
 
         StamboomConsole console = new StamboomConsole(controller);
         //console.startMenu();
+    }
+
+    private void saveAdmin() {
+        String filePath = readString("Opslaan op welke locatie?");
+        try
+        {
+            File f = new File(filePath);
+            controller.serialize(f);
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void loadAdmin() {
+        String filePath = readString("Ophalen van welke locatie?");
+        try
+        {
+            File f = new File(filePath);
+            controller.deserialize(f);
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void showStamboom() {
+        Persoon p = selecteerPersoon();
+        System.out.println(p.stamboomAlsString());
     }
 }

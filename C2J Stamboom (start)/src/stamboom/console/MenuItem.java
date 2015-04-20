@@ -8,7 +8,11 @@ public enum MenuItem {
     NEW_HUWELIJK("registreer huwelijk"),
     SCHEIDING("registreer scheiding"),
     SHOW_PERS("toon gegevens persoon"),
-    SHOW_GEZIN("toon gegevens gezin");
+    SHOW_GEZIN("toon gegevens gezin"),
+    SAVE_ADMIN("slaat de administratie op"),
+    LOAD_ADMIN("laad de administratie"),
+    SHOW_STAMBOOM("geeft een stamboom weer")
+    ;
     
     private final String omschr;
 

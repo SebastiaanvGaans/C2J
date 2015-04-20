@@ -5,8 +5,14 @@
 package stamboom.storage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import stamboom.domain.Administratie;
 
 public class SerializationMediator implements IStorageMediator {
@@ -33,7 +39,22 @@ public class SerializationMediator implements IStorageMediator {
         }
         
         // todo opgave 2
-        return null;
+        Administratie admin = null;
+        
+        FileInputStream fileIn = new FileInputStream(props.getProperty("file"));
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        
+        try {
+            admin = (Administratie) in.readObject();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally{
+            in.close();
+            fileIn.close();
+        }
+        
+        
+        return admin;
     }
 
     @Override
@@ -43,7 +64,14 @@ public class SerializationMediator implements IStorageMediator {
         }
 
         // todo opgave 2
-  
+        try{
+        FileOutputStream fileOut = new FileOutputStream(props.getProperty("file"));
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(admin);
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**

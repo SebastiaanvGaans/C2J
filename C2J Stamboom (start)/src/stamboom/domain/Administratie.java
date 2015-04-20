@@ -1,14 +1,21 @@
 package stamboom.domain;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-public class Administratie {
+public class Administratie implements Serializable{
 
     //************************datavelden*************************************
     private int nextGezinsNr;
     private int nextPersNr;
     private final List<Persoon> personen;
     private final List<Gezin> gezinnen;
+    private transient ObservableList<Persoon> observablePersonen;
+    private transient ObservableList<Gezin> observableGezinnen;
 
     //***********************constructoren***********************************
     /**
@@ -22,6 +29,8 @@ public class Administratie {
         this.nextPersNr = 1;
         this.personen = new ArrayList<Persoon>();
         this.gezinnen = new ArrayList<Gezin>();
+        this.observablePersonen = FXCollections.observableList(personen);
+        this.observableGezinnen = FXCollections.observableList(gezinnen);
     }
 
     //**********************methoden****************************************
@@ -106,7 +115,7 @@ public class Administratie {
         this.nextPersNr++;
         
         
-        personen.add(persoon);
+        observablePersonen.add(persoon);
         return persoon;
     }
 
@@ -144,7 +153,7 @@ public class Administratie {
 
         Gezin gezin = new Gezin(nextGezinsNr, ouder1, ouder2);
         nextGezinsNr++;
-        gezinnen.add(gezin);
+        observableGezinnen.add(gezin);
 
         ouder1.wordtOuderIn(gezin);
         if (ouder2 != null) {
@@ -241,7 +250,7 @@ public class Administratie {
         gezin.setHuwelijk(huwdatum);
         ouder1.wordtOuderIn(gezin);
         ouder2.wordtOuderIn(gezin);
-        gezinnen.add(gezin);
+        observableGezinnen.add(gezin);
         return gezin;
     }
 
@@ -270,7 +279,7 @@ public class Administratie {
     public Persoon getPersoon(int nr) {
         //todo opgave 1
         //aanname: er worden geen personen verwijderd
-        for (Persoon persoon : personen) {
+        for (Persoon persoon : getPersonen()) {
             if (persoon.getNr() == nr) {
                 return persoon;
             }
@@ -286,7 +295,7 @@ public class Administratie {
     public ArrayList<Persoon> getPersonenMetAchternaam(String achternaam) {
         //todo opgave 1
         ArrayList<Persoon> returnPersonen = new ArrayList<Persoon>();
-        for (Persoon persoon : personen) {
+        for (Persoon persoon : getPersonen()) {
             if (persoon.getAchternaam().toLowerCase().equals(achternaam.toLowerCase())) {
                 returnPersonen.add(persoon);
             }
@@ -298,9 +307,9 @@ public class Administratie {
      *
      * @return de geregistreerde personen
      */
-    public List<Persoon> getPersonen() {
+    public ObservableList<Persoon> getPersonen() {
         // todo opgave 1
-        return (List<Persoon>) Collections.unmodifiableList(personen);
+        return (ObservableList<Persoon>) FXCollections.unmodifiableObservableList(observablePersonen);
     }
 
     /**
@@ -321,7 +330,7 @@ public class Administratie {
         for (String firstChar : vnamen) {
             initialen += firstChar.charAt(0) + ".";
         }
-        for (Persoon persoon : personen) {
+        for (Persoon persoon : getPersonen()) {
             if (persoon.getInitialen().toLowerCase().trim().equals(initialen.toLowerCase())) {
                 if (persoon.getTussenvoegsel().toLowerCase().equals(tvoegsel.toLowerCase())) {
                     if (persoon.getAchternaam().toLowerCase().equals(anaam.toLowerCase())) {
@@ -343,8 +352,8 @@ public class Administratie {
      *
      * @return de geregistreerde gezinnen
      */
-    public List<Gezin> getGezinnen() {
-        return null;
+    public ObservableList<Gezin> getGezinnen() {
+        return (ObservableList<Gezin>) FXCollections.unmodifiableObservableList(observableGezinnen);
     }
 
     /**
@@ -359,5 +368,12 @@ public class Administratie {
             return gezinnen.get(gezinsNr - 1);
         }
         return null;
+    }
+    
+    private void readObject(ObjectInputStream ois)
+            throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        observablePersonen = FXCollections.observableArrayList(personen);
+        observableGezinnen = FXCollections.observableArrayList(gezinnen);
     }
 }

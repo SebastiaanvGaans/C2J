@@ -59,7 +59,7 @@
                                                                 <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Achternaam" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="3" />
                                                                 <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="-1.0" text="Geslacht" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="4" />
                                                                 <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="GebDat" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="5" />
-                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="GebPlaats" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="6" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="GebPlaats" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="6" />
                                                                 <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Ouderlijk Gezin" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="7" />
                                                                 <TextField id="tfPersoonNr" fx:id="tfVoornamen" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                 <TextField id="tfPersoonNr" fx:id="tfTussenvoegsel" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -177,6 +177,147 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
+                  <Tab onSelectionChanged="#selectTab" text="Gezin">
+                    <content>
+                      <AnchorPane>
+                                    <children>
+                                        <SplitPane dividerPositions="0.38179519595448796" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                                <BorderPane>
+                                       <top>
+                                          <ComboBox fx:id="cbGezinnen" minHeight="-Infinity" minWidth="-Infinity" onAction="#selectGezin" prefHeight="25.0" prefWidth="237.0" promptText="kies gezin" BorderPane.alignment="CENTER">
+                                             <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                   <String fx:value="Item 1" />
+                                                   <String fx:value="Item 2" />
+                                                   <String fx:value="Item 3" />
+                                                </FXCollections>
+                                             </items>
+                                          </ComboBox>
+                                       </top></BorderPane>
+                                                <AnchorPane>
+                                                    <children>
+                                                        <GridPane gridLinesVisible="false" hgap="4.0" vgap="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Ouder 1" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="1" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Ouder 2" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="2" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="-1.0" text="Trouw datum" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="4" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Scheidings datum" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="5" />
+                                                                <TextField id="tfPersoonNr" fx:id="tfGezinScheiding" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                <TextField id="tfPersoonNr" fx:id="tfGezinTrouw" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <ComboBox fx:id="cbGezinOuder1" prefHeight="-1.0" prefWidth="400.0" promptText="ouder 1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <items>
+                                                      <FXCollections fx:factory="observableArrayList">
+                                                         <String fx:value="Item 1" />
+                                                         <String fx:value="Item 2" />
+                                                         <String fx:value="Item 3" />
+                                                      </FXCollections>
+                                                   </items>
+                                                </ComboBox>
+                                                <ComboBox fx:id="cbGezinOuder2" prefHeight="-1.0" prefWidth="400.0" promptText="ouder 2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <items>
+                                                      <FXCollections fx:factory="observableArrayList">
+                                                         <String fx:value="Item 1" />
+                                                         <String fx:value="Item 2" />
+                                                         <String fx:value="Item 3" />
+                                                      </FXCollections>
+                                                   </items>
+                                                </ComboBox>
+                                                <Button fx:id="btHuwelijk" mnemonicParsing="false" onAction="#setHuwdatum" text="set huwelijk" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                <Button fx:id="btScheiding" mnemonicParsing="false" onAction="#setScheidingsdatum" text="set scheiding" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                            </children>
+                                                            <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="68.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="326.0" minWidth="10.0" prefWidth="182.0" />
+                                                            </columnConstraints>
+                                                            <padding>
+                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x1" />
+                                                            </padding>
+                                                            <rowConstraints>
+                                                                <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                            </rowConstraints>
+                                                        </GridPane>
+                                                    </children>
+                                                </AnchorPane>
+                                            </items>
+                                        </SplitPane>
+                                    </children>
+                                </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab onSelectionChanged="#selectTab" text="Nieuw Persoon">
+                    <content>
+                                <AnchorPane>
+                                    <children>
+                                        <SplitPane dividerPositions="0.38179519595448796" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                                <BorderPane />
+                                                <AnchorPane>
+                                                    <children>
+                                                        <GridPane gridLinesVisible="false" hgap="4.0" vgap="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Voornamen" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="1" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Tussenvoegsel" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="2" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Achternaam" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="3" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="-1.0" text="Geslacht" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="4" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="GebDat" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="5" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="GebPlaats" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="6" />
+                                                                <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Ouderlijk Gezin" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x3" GridPane.rowIndex="7" />
+                                                                <TextField id="tfPersoonNr" fx:id="tfNewPersonVoornamen" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                <TextField id="tfPersoonNr" fx:id="tfNewPersonTussenvoegsel" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                <TextField id="tfPersoonNr" fx:id="tfNewPersonAchternaam" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                <ComboBox fx:id="cbNewPersonOuderlijkGezin" prefWidth="400.0" promptText="Kies (zo mogelijk) het ouderlijk gezin" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                                                    <items>
+                                                                        <FXCollections fx:factory="observableArrayList">
+                                                                            <String fx:value="Item 1" />
+                                                                            <String fx:value="Item 2" />
+                                                                            <String fx:value="Item 3" />
+                                                                        </FXCollections>
+                                                                    </items>
+                                                                </ComboBox>
+                                                                <TextField id="tfPersoonNr" fx:id="tfNewPersonGebPlaats" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                                <TextField id="tfPersoonNr" fx:id="tfNewPersonGebDatum" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                                <Button fx:id="btCreatePerson" alignment="CENTER" mnemonicParsing="false" onAction="#okPersoonInvoer" prefHeight="25.0" prefWidth="92.0" text="Ok" GridPane.rowIndex="9" />
+                                                <Button fx:id="btCancelPerson" mnemonicParsing="false" onAction="#cancelPersoonInvoer" prefHeight="25.0" prefWidth="83.0" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                <TextField id="tfPersoonNr" fx:id="tfNewPersonGeslacht" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                            </children>
+                                                            <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="68.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="326.0" minWidth="10.0" prefWidth="182.0" />
+                                                            </columnConstraints>
+                                                            <padding>
+                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x1" />
+                                                            </padding>
+                                                            <rowConstraints>
+                                                                <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="24.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                            </rowConstraints>
+                                                        </GridPane>
+                                                    </children>
+                                                </AnchorPane>
+                                            </items>
+                                        </SplitPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                  </Tab>
                     </tabs>
                 </TabPane>
             </center>
@@ -189,7 +330,7 @@
                                 <MenuItem fx:id="miOpen" mnemonicParsing="false" onAction="#openStamboom" text="Open" />
                                 <MenuItem fx:id="miSave" mnemonicParsing="false" onAction="#saveStamboom" text="Save" />
                                 <SeparatorMenuItem mnemonicParsing="false" />
-                                <CheckMenuItem fx:id="cmDatabase" disable="true" mnemonicParsing="false" onAction="#configureStorage" text="Database" />
+                                <CheckMenuItem fx:id="cmDatabase" mnemonicParsing="false" onAction="#configureStorage" text="Database" />
                                 <SeparatorMenuItem mnemonicParsing="false" />
                                 <MenuItem fx:id="miClose" mnemonicParsing="false" onAction="#closeApplication" text="Close" />
                             </items>

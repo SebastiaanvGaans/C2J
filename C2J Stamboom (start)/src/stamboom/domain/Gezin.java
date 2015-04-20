@@ -1,5 +1,8 @@
 package stamboom.domain;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.*;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -7,13 +10,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import stamboom.util.StringUtilities;
 
-public class Gezin {
+public class Gezin implements Serializable{
 
     // *********datavelden*************************************
     private final int nr;
     private final Persoon ouder1;
     private final Persoon ouder2;
     private final List<Persoon> kinderen;
+    private transient ObservableList<Persoon> kinderenObservable;
     /**
      * kan onbekend zijn (dan is het een ongehuwd gezin):
      */
@@ -64,6 +68,7 @@ public class Gezin {
         this.ouder1 = ouder1;
         this.ouder2 = ouder2;
         this.kinderen = new ArrayList<>();
+        this.kinderenObservable = FXCollections.observableList(kinderen);
         this.huwelijksdatum = null;
         this.scheidingsdatum = null;
     }
@@ -72,8 +77,8 @@ public class Gezin {
     /**
      * @return alle kinderen uit dit gezin
      */
-    public List<Persoon> getKinderen() {
-        return (List<Persoon>) Collections.unmodifiableList(kinderen);
+    public ObservableList<Persoon> getKinderen() {
+        return FXCollections.unmodifiableObservableList(kinderenObservable);
     }
 
     /**
@@ -281,5 +286,11 @@ public class Gezin {
             }
         }
         return false;
+    }
+    
+    private void readObject(ObjectInputStream ois)
+            throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        kinderenObservable = FXCollections.observableArrayList(kinderen);
     }
 }
